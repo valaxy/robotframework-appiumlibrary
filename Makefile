@@ -6,6 +6,12 @@ help:
 generate_doc: 
 	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppimuLibrary.html
 
+upload_doc:
+	git checkout gh-pages
+	git merge master
+	git push origin gh-pages
+	git checkout master
+
 pypi_upload:clean_pyc
 	rm -rf src/robotframework_appiumlibrary.egg-info/
 	VENV/bin/python setup.py sdist upload
