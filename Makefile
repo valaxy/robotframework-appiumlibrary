@@ -7,9 +7,9 @@ generate_doc:
 	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppimuLibrary.html
 
 update_github:
-	version=`python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"`
-	git tag $version
-	git push origin $version
+	version=`make version`
+	git tag ${version}
+	git push origin ${version}
 	git push origin master
 	git checkout gh-pages
 	git merge master
@@ -43,4 +43,4 @@ coverage:
 	py.test --cov AppiumLibrary --cov-report=html tests
 
 version:
-	cat src/AppiumLibrary/version.py
+	python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"
