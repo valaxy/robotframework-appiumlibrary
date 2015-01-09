@@ -12,6 +12,17 @@ upload_doc:
 	git push origin gh-pages
 	git checkout master
 
+update_github:
+	version=`make version`
+	git tag ${version}
+	git push origin ${version}
+	git push origin master
+	git checkout gh-pages
+	git merge master
+	git push origin gh-pages
+	git checkout master	
+
+
 pypi_upload:clean_pyc
 	rm -rf src/robotframework_appiumlibrary.egg-info/
 	VENV/bin/python setup.py sdist upload
@@ -38,4 +49,4 @@ coverage:
 	py.test --cov AppiumLibrary --cov-report=html tests
 
 version:
-	cat src/AppiumLibrary/version.py
+	python -c "import sys;sys.path.insert(0,'src');import AppiumLibrary;print AppiumLibrary.__version__"
