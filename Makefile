@@ -4,7 +4,7 @@ help:
 	@echo targes: version, generate_doc, pypi_upload, clean_pyc, andriod_demo, ios_demo, demo, unittest, test
 
 generate_doc: 
-	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppimuLibrary.html
+	VENV/bin/python -m robot.libdoc ./src/AppiumLibrary/ ./doc/AppiumLibrary.html
 
 upload_doc:
 	git checkout gh-pages
