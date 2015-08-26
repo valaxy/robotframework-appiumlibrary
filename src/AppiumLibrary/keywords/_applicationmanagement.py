@@ -9,6 +9,7 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 
 class _ApplicationManagementKeywords(KeywordGroup):
+    _last_application = None
 
     def __init__(self):
         self._cache = ApplicationCache()
@@ -51,6 +52,15 @@ class _ApplicationManagementKeywords(KeywordGroup):
         application = webdriver.Remote(str(remote_url), desired_caps)
         self._debug('Opened application with session id %s' % application.session_id)
         
+        return self._cache.register(application, alias)
+
+    def open_application2(self, remote_url, alias=None,  **kwargs):
+        """Same with open_application"""
+        desired_caps = kwargs
+        application = webdriver.Remote(str(remote_url), desired_caps)
+        _ApplicationManagementKeywords._last_application = application
+        self._debug('Opened application with session id %s' % application.session_id)
+
         return self._cache.register(application, alias)
 
     def switch_application(self, index_or_alias):
